@@ -5,6 +5,6 @@ from django.test import TestCase, Client
 from .models import Image
 import json
 
+# Create your tests here.
 class GalleryTestCase(TestCase):
 
-    

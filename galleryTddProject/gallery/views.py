@@ -7,3 +7,7 @@ from .models import Image
 import json
 
 # Create your views here.
+@csrf_exempt
+def index(request):
+    images_list = []
+    return HttpResponse(serializers.serialize("json", images_list))

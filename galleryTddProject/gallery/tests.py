@@ -56,3 +56,19 @@ class GalleryTestCase(TestCase):
         current_data = json.loads(response.content)
         print(current_data)
         self.assertEqual(len(current_data), 2)
+
+    def test_list_public_portfolio(self):
+        portfolio1 = PortfolioCollection()
+        portfolio1.name = 'portfolio3'
+        portfolio1.public = True
+        portfolio2 = PortfolioCollection()
+        portfolio2.name = 'portfolio4'
+        portfolio2.public = False
+        portfolio1.save()
+        portfolio2.save()
+        url = '/gallery/portfolios'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 200)
+        current_data = json.loads(response.content)
+        print(current_data)
+        self.assertEqual(len(current_data), 1)

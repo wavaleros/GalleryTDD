@@ -68,9 +68,15 @@ class GalleryTestCase(TestCase):
         portfolio2.save()
 
         user_model = User.objects.create_user(username='test', password='kd8wke-DE34', first_name='test', last_name='test', email='test@test.com')
-        
-        Image.objects.create(name='nuevaImg', url='No', description='testImage', type='jpg', user=user_model, portfolio = portfolio1, public = True)
-        Image.objects.create(name='nuevaImg2', url='No', description='testImage', type='jpg', user=user_model, portfolio = portfolio1, public = False)
+
+        Image.objects.create(name='nuevaImg', url='No', description='testImage', type='jpg', user=user_model,
+                             portfolio=portfolio1, public=True)
+        Image.objects.create(name='nuevaImg2', url='No', description='testImage', type='jpg', user=user_model,
+                             portfolio=portfolio1, public=False)
+        Image.objects.create(name='nuevaImg3', url='No', description='testImage', type='jpg', user=user_model,
+                             portfolio=portfolio1, public=True)
+        Image.objects.create(name='nuevaImg4', url='No', description='testImage', type='jpg', user=user_model,
+                             portfolio=portfolio2, public=True)
 
 
         url = '/gallery/public-portfolios'
@@ -78,4 +84,4 @@ class GalleryTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         current_data = json.loads(response.content)
         print(current_data)
-        self.assertEqual(len(current_data), 1)
+        self.assertEqual(len(current_data), 2)

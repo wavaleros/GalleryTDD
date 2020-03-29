@@ -37,6 +37,7 @@ def list_portafolios(request):
 
 
 @csrf_exempt
-def list_public_porfolios(request):
-    portafolio_list = PortfolioCollection.objects.filter(public=True)
-    return HttpResponse(serializers.serialize("json", portafolio_list))
+def list_public_porfolios_by_user(request):
+    user_id = request.GET['idusuario']
+    element_list = Image.objects.filter(user_id=user_id, public=True, portfolio__public=True)
+    return HttpResponse(serializers.serialize("json", element_list))

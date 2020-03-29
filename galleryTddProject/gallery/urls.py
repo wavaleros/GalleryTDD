@@ -8,4 +8,5 @@ urlpatterns = [
     path('portfolios', views.list_portafolios, name='portfolios'),
     path('public-portfolios', views.list_public_porfolios_by_user, name='public_portfolios_by_user'),
     path('user/login/', views.user_login, name='user_login'),
+    path('user', views.edit_user_view, name='editUser'),
 ]

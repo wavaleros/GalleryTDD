@@ -23,7 +23,7 @@ class GalleryTestCase(TestCase):
 
         response = self.client.get('/gallery/')
         current_data = json.loads(response.content)
-        print(current_data)
+        #print(current_data)
         self.assertEqual(len(current_data), 2)
 
     def test_verify_first_from_images_list(self):
@@ -60,7 +60,7 @@ class GalleryTestCase(TestCase):
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, 200)
         current_data = json.loads(response.content)
-        print(current_data)
+        #print(current_data)
         self.assertEqual(len(current_data), 2)
 
     def test_list_public_portfolio(self):
@@ -89,7 +89,7 @@ class GalleryTestCase(TestCase):
         response = self.client.get(url, {'idusuario': user_model.id}, format='json')
         self.assertEqual(response.status_code, 200)
         current_data = json.loads(response.content)
-        print(current_data)
+        #print(current_data)
         self.assertEqual(len(current_data), 2)
 
     def test_login(self):
@@ -101,7 +101,7 @@ class GalleryTestCase(TestCase):
                                     content_type='application/json')
         current_data = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
-        print(current_data)
+        #print(current_data)
         self.assertEqual(current_data[0]['fields']['email'], user_model.email)
 
     def test_edit_user(self):
@@ -112,12 +112,13 @@ class GalleryTestCase(TestCase):
 
         json_data = json.dumps(
             {"username": user_model.username, "password": user_model.password, "first_name": user_model.first_name,
-             "last_name": user_model.last_name, "email": user_model.email}),
+             "last_name": user_model.last_name, "email": user_model.email})
         response = self.client.post('/gallery/user',
                                     json_data,
                                     content_type='application/json')
         current_data = json.loads(response.content)
-        updated_user = User.objects.filter(id=user_model.id)
+        updated_user = User.objects.filter(id=user_model.id).get()
+
         self.assertEqual(current_data[0]['fields']['email'], updated_user.email)
         self.assertEqual(current_data[0]['fields']['username'], updated_user.username)
         self.assertEqual(current_data[0]['fields']['first_name'], updated_user.first_name)

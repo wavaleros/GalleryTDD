@@ -55,3 +55,24 @@ def user_login(request):
             return HttpResponse(serializers.serialize("json", user), status=200)
         else:
             return HttpResponse(serializers.serialize("json", "error"), status=404)
+
+@csrf_exempt
+def edit_user_view(request):
+    if request.method == 'POST':
+        json_user = json.loads(request.body)
+
+        username = json_user['username']
+        first_name = json_user['first_name']
+        last_name = json_user['last_name']
+        password = json_user['password']
+        email = json_user['email']
+
+        user_model = User.objects.filter(username = username).get()
+        user_model.password = password
+        user_model.username = username
+        user_model.last_name = last_name
+        user_model.first_name = first_name
+        user_model.last_name = last_name
+        user_model.email = email
+        user_model.save()
+    return HttpResponse(serializers.serialize("json", [user_model]))

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from .models import Image
+from .models import Image, PortfolioCollection
 import json
 
 # Create your views here.
@@ -32,5 +32,5 @@ def add_user_view(request):
 
 @csrf_exempt
 def list_portafolios(request):
-    portafolio_list = []
+    portafolio_list = PortfolioCollection.objects.all()
     return HttpResponse(serializers.serialize("json", portafolio_list))

@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
 # Create your tests here.
-from .models import Image
+from .models import Image, PortfolioCollection
 import json
 
 # Create your tests here.
@@ -42,3 +42,17 @@ class GalleryTestCase(TestCase):
         url = '/gallery/portfolios'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, 200)
+
+    def test_specific_portfolio_amount(self):
+        portfolio1 = PortfolioCollection()
+        portfolio1.name = 'portfolio1'
+        portfolio2 = PortfolioCollection()
+        portfolio2.name = 'portfolio2'
+        portfolio1.save()
+        portfolio2.save()
+        url = '/gallery/portfolios'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 200)
+        current_data = json.loads(response.content)
+        print(current_data)
+        self.assertEqual(len(current_data), 2)

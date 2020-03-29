@@ -37,3 +37,8 @@ class GalleryTestCase(TestCase):
         response=self.client.post('/gallery/addUser/',json.dumps({"username": "testUser", "first_name": "Test", "last_name": "User", "password": "AnyPas#5", "email": "test@test.com"}), content_type='application/json')
         current_data=json.loads(response.content)
         self.assertEqual(current_data[0]['fields']['username'],'testUser')
+
+    def test_list_portfolios(self):
+        url = '/gallery/portfolios'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, 200)

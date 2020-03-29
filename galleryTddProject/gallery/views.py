@@ -34,3 +34,9 @@ def add_user_view(request):
 def list_portafolios(request):
     portafolio_list = PortfolioCollection.objects.all()
     return HttpResponse(serializers.serialize("json", portafolio_list))
+
+
+@csrf_exempt
+def list_public_porfolios(request):
+    portafolio_list = PortfolioCollection.objects.filter(public=True)
+    return HttpResponse(serializers.serialize("json", portafolio_list))

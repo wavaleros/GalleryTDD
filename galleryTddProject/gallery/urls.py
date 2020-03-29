@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('addUser/', views.add_user_view, name='addUser'),
     path('portfolios', views.list_portafolios, name='portfolios'),
+    path('public-portfolios', views.list_public_porfolios, name='public_portfolios')
 ]

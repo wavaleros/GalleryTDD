@@ -66,7 +66,7 @@ class GalleryTestCase(TestCase):
         portfolio2.public = False
         portfolio1.save()
         portfolio2.save()
-        url = '/gallery/portfolios'
+        url = '/gallery/public-portfolios'
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, 200)
         current_data = json.loads(response.content)
